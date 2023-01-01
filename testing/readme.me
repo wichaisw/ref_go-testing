@@ -1,0 +1,14 @@
+convention over configuration
+- ending files' name with ".test.go"
+- put tests in the same package as the one being tested
+- func with a signature "func TestXxx(t *testing.T)"
+
+Run Commands
+- go test .
+  all test in current dir
+- go test ./ ...
+  run all nested dir down
+- go test -v .
+  verbose, log tests 
+- go test -run TestName
+  test specific test
