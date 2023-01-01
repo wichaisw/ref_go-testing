@@ -79,10 +79,31 @@ func (l Logger) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	log.Printf("Server http middleware: %s %s %s %s", req.RemoteAddr, req.Method, req.URL, time.Since(start))
 }
 
+func AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		u, p, ok := req.BasicAuth()
+		log.Println("auth: ", u, p, ok)
+		if !ok {
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte(`can't parse the basic auth.`))
+			return
+		}
+
+		if u != "apidemo" || p != "34567" {
+			w.WriteHeader(http.StatusUnauthorized)
+			w.Write([]byte(`Username/Password is Incorrect.`))
+			return
+		}
+
+		fmt.Println("Auth passed.")
+		next(w, req)
+	}
+}
+
 func main() {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/users", usersHandler)
+	mux.HandleFunc("/users", AuthMiddleware(usersHandler))
 	mux.HandleFunc("/health", healthHandler)
 
 	logMux := Logger{Handler: mux}
