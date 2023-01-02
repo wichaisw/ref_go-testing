@@ -6,6 +6,7 @@ type StubSearcher struct {
 	phone string
 }
 
+// implement Queryer
 func (ss StubSearcher) Search(people []*Person, firstName, lastName string) *Person {
 	return &Person{
 		FirstName: firstName,
