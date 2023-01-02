@@ -4,21 +4,17 @@ import "testing"
 
 type DummySearcher struct{}
 
-// Dummy has same interface as Queryer just to make it able to be compiled
-func (ds DummySearcher) Search(people []*Person, firstName string, lastName string) *Person {
+func (ds DummySearcher) Search(people []*Person, firstName, lastName string) *Person {
 	return &Person{}
 }
 
-func TestFind(t *testing.T) {
-	t.Run("should return error when FirstName or LastName is empty", func(t *testing.T) {
-		phonebook := &Phonebook{}
-		want := ErrMissingArgs
+func TestFindReturnsError(t *testing.T) {
+	phonebook := &Phonebook{}
 
-		dd := DummySearcher{}
-		_, got := phonebook.Find(dd, "", "")
+	want := ErrMissingArgs
+	_, got := phonebook.Find(DummySearcher{}, "", "")
 
-		if got != want {
-			t.Errorf("Want '%s', got '%s'", want, got)
-		}
-	})
+	if got != want {
+		t.Errorf("Want '%s', got '%s'", want, got)
+	}
 }
