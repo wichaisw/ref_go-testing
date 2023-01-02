@@ -2,8 +2,9 @@
 package ticket_test
 
 import (
-	"github.com/wichaisw/ticket"
 	"testing"
+
+	"github.com/wichaisw/go-kbtg-course/testing/ticket"
 )
 
 func TestTicket(t *testing.T) {
