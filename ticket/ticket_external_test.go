@@ -4,7 +4,7 @@ package ticket_test
 import (
 	"testing"
 
-	"github.com/wichaisw/go-kbtg-course/testing/ticket"
+	"github.com/wichaisw/ref_go-testing/ticket"
 )
 
 func TestTicket(t *testing.T) {
