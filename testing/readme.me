@@ -12,3 +12,9 @@ Run Commands
   verbose, log tests 
 - go test -run TestName
   test specific test
+
+- go test -cover
+  run test with coverage
+- go test -cover -coverprofile=c.out
+- go tool cover -html=c.out -o coverage.html
+  generating an HTML coverage report
